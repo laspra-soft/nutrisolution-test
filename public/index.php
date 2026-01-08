@@ -6,9 +6,11 @@ use App\Domain\Exception\DomainException;
 use App\Domain\Exception\InvalidCartException;
 use App\Domain\Exception\InvalidDiscountCodeException;
 use DI\Bridge\Slim\Bridge as SlimAppFactory;
+use DI\Container;
 use DI\ContainerBuilder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Routing\RouteCollectorProxy;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -17,7 +19,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 $containerBuilder = new ContainerBuilder();
-$dependencies     = require __DIR__ . '/../config/dependencies.php';
+/** @var callable(ContainerBuilder<Container>): void $dependencies */
+$dependencies = require __DIR__ . '/../config/dependencies.php';
 $dependencies($containerBuilder);
 $container = $containerBuilder->build();
 
@@ -53,13 +56,13 @@ $errorMiddleware->setDefaultErrorHandler(
         }
 
         $response = $app->getResponseFactory()->createResponse($status);
-        $response->getBody()->write(json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        $response->getBody()->write((string) json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
         return $response->withHeader('Content-Type', 'application/json');
     }
 );
 
-$app->add(static function (Request $request, $handler) {
+$app->add(static function (Request $request, RequestHandlerInterface $handler): Response {
     $response = $handler->handle($request);
 
     return $response
@@ -69,7 +72,7 @@ $app->add(static function (Request $request, $handler) {
 });
 
 $app->get('/', static function (Request $request, Response $response) {
-    $response->getBody()->write(json_encode([
+    $response->getBody()->write((string) json_encode([
         'app' => 'Cart Validation Test',
         'status' => 'running',
         'php_version' => PHP_VERSION,
@@ -85,7 +88,7 @@ $app->group('/api', static function (RouteCollectorProxy $group) {
     $group->post('/cart/validate', static function (Request $request, Response $response) {
         $body = $request->getParsedBody();
 
-        $response->getBody()->write(json_encode([
+        $response->getBody()->write((string) json_encode([
             'success' => false,
             'error' => [
                 'code' => 'NOT_IMPLEMENTED',
