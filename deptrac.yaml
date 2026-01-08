@@ -18,14 +18,91 @@ deptrac:
       collectors:
         - type: directory
           value: src/Presentation/.*
+    - name: PSR
+      collectors:
+        - type: composer
+          composerPath: composer.json
+          composerLockPath: composer.lock
+          packages:
+            - psr/http-message
+            - psr/http-server-handler
+            - psr/http-server-middleware
+            - psr/container
+    - name: PhpCore
+      collectors:
+        # Exceptions
+        - type: classLike
+          value: "^Exception$"
+        - type: classLike
+          value: "^InvalidArgumentException$"
+        - type: classLike
+          value: "^RuntimeException$"
+        - type: classLike
+          value: "^LogicException$"
+        - type: classLike
+          value: "^Throwable$"
+        - type: classLike
+          value: "^Error$"
+        - type: classLike
+          value: "^TypeError$"
+        - type: classLike
+          value: "^ValueError$"
+        - type: classLike
+          value: "^ArgumentCountError$"
+        - type: classLike
+          value: "^ArithmeticError$"
+        - type: classLike
+          value: "^DivisionByZeroError$"
+        # Date/Time
+        - type: classLike
+          value: "^DateTime(Interface|Immutable)?$"
+        - type: classLike
+          value: "^Date(Interval|Period)$"
+        # Interfaces
+        - type: classLike
+          value: "^Stringable$"
+        - type: classLike
+          value: "^Iterator(Aggregate)?$"
+        - type: classLike
+          value: "^ArrayAccess$"
+        - type: classLike
+          value: "^Countable$"
+        - type: classLike
+          value: "^JsonSerializable$"
+        - type: classLike
+          value: "^Serializable$"
+        # Other
+        - type: classLike
+          value: "^Closure$"
+        - type: classLike
+          value: "^Generator$"
+        - type: classLike
+          value: "^stdClass$"
+    - name: Vendor
+      collectors:
+        - type: composer
+          composerPath: composer.json
+          composerLockPath: composer.lock
+          packages:
+            - slim/slim
+            - slim/psr7
+            - php-di/php-di
+            - php-di/slim-bridge
 
   ruleset:
-    Domain: []
+    Domain:
+      - PhpCore
     Application:
       - Domain
+      - PhpCore
     Infrastructure:
       - Domain
       - Application
+      - PSR
+      - Vendor
+      - PhpCore
     Presentation:
       - Application
       - Domain
+      - PSR
+      - PhpCore

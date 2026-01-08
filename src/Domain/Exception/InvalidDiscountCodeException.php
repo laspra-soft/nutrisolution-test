@@ -11,7 +11,7 @@ class InvalidDiscountCodeException extends DomainException
 {
     public function __construct(string $code)
     {
-        parent::__construct("The discount code '{$code}' is not valid");
+        parent::__construct("The discount code '$code' is not valid");
     }
 
     public function getErrorCode(): string

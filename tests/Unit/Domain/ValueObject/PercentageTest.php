@@ -27,7 +27,6 @@ class PercentageTest extends TestCase
         $percentage = new Percentage(0.0);
 
         self::assertSame(0.0, $percentage->value);
-        self::assertTrue($percentage->isZero());
     }
 
     #[Test]
@@ -282,36 +281,6 @@ class PercentageTest extends TestCase
         $tax = $percentage->addTaxTo($price);
 
         self::assertSame(500, $tax->value);
-    }
-
-    #[Test]
-    public function it_detects_zero(): void
-    {
-        $zero    = new Percentage(0.0);
-        $nonZero = new Percentage(20.0);
-
-        self::assertTrue($zero->isZero());
-        self::assertFalse($nonZero->isZero());
-    }
-
-    #[Test]
-    public function it_checks_equality(): void
-    {
-        $a = new Percentage(20.0);
-        $b = new Percentage(20.0);
-        $c = new Percentage(19.0);
-
-        self::assertTrue($a->isEqual($b));
-        self::assertFalse($a->isEqual($c));
-    }
-
-    #[Test]
-    public function it_creates_zero_via_factory(): void
-    {
-        $zero = Percentage::zero();
-
-        self::assertSame(0.0, $zero->value);
-        self::assertTrue($zero->isZero());
     }
 
     #[Test]

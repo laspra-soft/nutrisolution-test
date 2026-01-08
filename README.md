@@ -1,57 +1,7 @@
-# 🛒 Cart Validation Test
+Hello! I really enjoyed working on this test.
+There are definitely things to be improved, like for better request validation(I would use symfony/validator) 
+and serialization using symfony/serializer or JMS serializer both for request and response.
 
-## Technical Test - Backend PHP Developer
+I started with setting up tools like phpstan for static analysis, phpcs, adn deptrac for linting project structure
 
-Implement a cart validation service with tax calculation and discount handling.
-
-## 🚀 Installation
-
-```bash
-composer install
-composer start
-# → http://localhost:8080
-```
-
-## ✅ Verify Setup
-
-```bash
-curl http://localhost:8080/
-# {"app":"Cart Validation Test","status":"running"}
-```
-
-## 🧪 Run Tests
-
-```bash
-composer test
-```
-
-## 📁 Project Structure
-
-```
-src/
-├── Domain/           # Pure business logic (no dependencies)
-│   ├── Entity/
-│   ├── ValueObject/  # Money, Percentage
-│   ├── Service/      # CartCalculator
-│   └── Exception/
-├── Application/      # Use cases and orchestration
-│   ├── DTO/
-│   ├── Service/      # DiscountService, TaxService
-│   └── UseCase/
-├── Infrastructure/
-└── Presentation/
-    └── Controller/
-```
-
-## 📖 Specifications
-
-See `SPECIFICATIONS.md` for full details.
-
-## 💡 Tips
-
-1. Start with `Money` and `Percentage` (Value Objects)
-2. Write tests first (TDD)
-3. All amounts in **cents** (integers, no floats)
-4. Domain layer has **zero external dependencies**
-
-Good luck! 🍀
+All in all it was fun to work with it, but I really have to stop myself here :)) Let me know your feedback!

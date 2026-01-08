@@ -25,27 +25,16 @@ final readonly class Percentage
         }
     }
 
-    /**
-     * Get the decimal representation (e.g., 0.20 for 20%).
-     */
     public function asDecimal(): float
     {
         return $this->value / 100;
     }
 
-    /**
-     * Calculate this percentage of a Money amount.
-     * Uses standard rounding (round half up).
-     */
     public function apply(Money $amount): Money
     {
-        return $amount->percentage($this->value);
+        return $amount->percentage($this);
     }
 
-    /**
-     * Calculate the multiplier for tax-inclusive prices.
-     * For 20% VAT, returns 1.20
-     */
     public function asMultiplier(): float
     {
         return 1 + $this->asDecimal();
@@ -72,21 +61,6 @@ final readonly class Percentage
         $taxAmount = (int) ceil($priceExcludingTax->value * $this->asDecimal());
 
         return new Money($taxAmount, $priceExcludingTax->currency);
-    }
-
-    public function isZero(): bool
-    {
-        return $this->value === 0.0;
-    }
-
-    public function isEqual(self $other): bool
-    {
-        return $this->value === $other->value;
-    }
-
-    public static function zero(): self
-    {
-        return new self(0.0);
     }
 
     public function __toString(): string
