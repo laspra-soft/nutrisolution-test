@@ -6,7 +6,7 @@ namespace App\Domain\Exception;
 
 /**
  * Thrown when cart validation fails.
- * 
+ *
  * Cases: empty cart, invalid quantity, invalid price
  */
 class InvalidCartException extends DomainException

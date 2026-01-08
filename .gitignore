@@ -9,3 +9,5 @@ composer.lock
 *.log
 .env
 .env.local
+.deptrac.cache
+.phpcs-cache

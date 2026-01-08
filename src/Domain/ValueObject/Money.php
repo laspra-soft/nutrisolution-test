@@ -6,9 +6,9 @@ namespace App\Domain\ValueObject;
 
 /**
  * Value Object representing a monetary amount in CENTS.
- * 
+ *
  * Example: €29.99 = 2999 cents
- * 
+ *
  * TODO: Implement these methods:
  * - getCents(): int
  * - getCurrency(): string
@@ -24,10 +24,10 @@ final readonly class Money
 {
     public function __construct(
         private int $cents,
-        private string $currency = 'EUR'
+        private string $currency = 'EUR',
     ) {
         // TODO: Validate (no negative amounts)
     }
-    
+
     // TODO: Implement methods
 }
