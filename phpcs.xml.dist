@@ -11,6 +11,7 @@
 
     <file>./src</file>
     <file>./tests</file>
+    <file>./public</file>
 
     <rule ref="Doctrine">
         <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint" />
