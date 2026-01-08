@@ -1,0 +1,20 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    level: max
+    paths:
+        - config/
+        - public/
+        - src/
+        - tests/
+    parallel:
+        maximumNumberOfProcesses: 4
+    rememberPossiblyImpureFunctionValues: false
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkMissingCallableSignature: true
+    checkUninitializedProperties: true
+    checkImplicitMixed: true
+
